@@ -1,8 +1,8 @@
 package DAO;
 
-import java.util.Date;
+import java.sql.Date;
 
-public class Rank {
+public class Rank {  //Each Record in the Rank table
 public Date date;
 public int rank;
 public int peak;
@@ -46,6 +46,13 @@ public int getRank() {
 }
 public void setRank(int rank) {
 	this.rank = rank;
+}
+
+@Override
+public String toString() {
+	return category + "," + peak
+			+ "," + type + "," + free
+			+ "\n";
 }
 
 
