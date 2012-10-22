@@ -171,6 +171,25 @@ public class Query {
     	return date;
     }
     
+    public ArrayList<Double> getRatingList(String query){
+    	ArrayList<Double> ratinglist = new ArrayList<Double>();
+    	try{
+            this.stmt = (PreparedStatement) this.jconn.getConn().prepareStatement(query);
+            this.rs = this.stmt.executeQuery(query);
+            
+            while(this.rs.next()){
+            	double rating = Double.valueOf(this.rs.getString(2));
+            	//System.out.println(this.rs.getString(1));
+            	ratinglist.add(rating);
+            }
+    	}
+    	catch(Exception e){
+    		e.printStackTrace();
+    	}  	
+    	return ratinglist;
+    	
+    }
+    
     public ArrayList<App> getReleaseDate(String query){
     		ArrayList<App> releaselist = new ArrayList<App>();
         	try{
