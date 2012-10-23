@@ -87,7 +87,8 @@ public class CombineLCwithFeature {
 	            	 String openfile = children[i];
 	            	 //System.out.println(openfile);
 	            	if (openfile.endsWith(".csv") && openfile.startsWith("Unfinished")) {
-	            		BufferedWriter output = new BufferedWriter(new FileWriter(fileroot + "/Rating-" + openfile, false));	
+//	            		BufferedWriter output = new BufferedWriter(new FileWriter(fileroot + "/Rating-" + openfile, false));	
+	            		BufferedWriter output = new BufferedWriter(new FileWriter(fileroot + "/Price-" + openfile, false));	
 	            		System.out.println(openfile);
 	            		FileReader posinStream = new FileReader(fileroot +"/"+openfile);
 	            		BufferedReader in = new BufferedReader(posinStream);
@@ -97,8 +98,10 @@ public class CombineLCwithFeature {
 	            			int id = Integer.valueOf(section[0]);
 	            			int length = Integer.valueOf(section[2]);
 	            			String type = section[1];
-	            			Rating r = new Rating(id);
-	            			CombineLCwithFeature clwf = new CombineLCwithFeature(r,id, length,type);
+//	            			Rating r = new Rating(id);
+	            			Price p = new Price(id);
+//	            			CombineLCwithFeature clwf = new CombineLCwithFeature(r,id, length,type);
+	            			CombineLCwithFeature clwf = new CombineLCwithFeature(p,id, length,type);
 	            			System.out.println(clwf.toString());
 	            			output.write(clwf.toString() + "\n");
 	            		}

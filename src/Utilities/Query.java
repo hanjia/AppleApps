@@ -6,6 +6,7 @@ import java.util.Date;
 
 import DAO.App;
 import DAO.Rank;
+import Features.Price;
 
 import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
@@ -187,6 +188,25 @@ public class Query {
     		e.printStackTrace();
     	}  	
     	return ratinglist;
+    	
+    }
+    
+    public ArrayList<Double> getPriceList(String query){
+    	ArrayList<Double> pricelist = new ArrayList<Double>();
+    	try{
+            this.stmt = (PreparedStatement) this.jconn.getConn().prepareStatement(query);
+            this.rs = this.stmt.executeQuery(query);
+            
+            while(this.rs.next()){
+            	double price = Double.valueOf(this.rs.getString(2));
+//            	System.out.println(this.rs.getString(1));
+            	pricelist.add(price);
+            }
+    	}
+    	catch(Exception e){
+    		e.printStackTrace();
+    	}  	
+    	return pricelist;
     	
     }
     
