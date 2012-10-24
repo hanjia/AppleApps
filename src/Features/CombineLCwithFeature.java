@@ -6,6 +6,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class CombineLCwithFeature {
 	public int appid;
@@ -75,20 +78,44 @@ public class CombineLCwithFeature {
 //		int start = Integer.valueOf(args[1]);
 //		int end = Integer.valueOf(args[2]);
 		
-		
+		int start = 6;
+		int end = 10;
+				
 		String fileroot = "/Users/johnidealist/Documents/Research Projects/App/EntireLifeCycle/All/LC length/Unfinished";
-//		int start = 1;
-//		int end = 3;
 		
-		 File directory = new File(fileroot);
-		 String[] children = directory.list();
-		 if (children != null) { //To traverse all files
-	            for  (int i = 0; i < children.length; i++) {
-	            	 String openfile = children[i];
-	            	 //System.out.println(openfile);
-	            	if (openfile.endsWith(".csv") && openfile.startsWith("Unfinished")) {
-//	            		BufferedWriter output = new BufferedWriter(new FileWriter(fileroot + "/Rating-" + openfile, false));	
-	            		BufferedWriter output = new BufferedWriter(new FileWriter(fileroot + "/Price-" + openfile, false));	
+		String lifecycletype = "Unfinished";  //finished or unfinished
+		String featurename = "price"; //feature type
+		
+		 File directory = new File(fileroot); 
+		  ArrayList<String> filelist = new ArrayList<String>();
+		  String[] children = directory.list();//Get files for life cycle
+		File theDir = new File(fileroot + "/"+featurename); // the directory for results
+
+		  // if the directory does not exist, create it
+		  if (!theDir.exists())
+		  {
+		    System.out.println("creating directory: " + fileroot + "/"+featurename);
+		    boolean result = theDir.mkdir();  
+		    if(result){    
+		       System.out.println("Directory created");  
+		     }
+
+		  }
+		
+
+		  for(int a = 0; a < children.length; a++){
+			  String tmp = children[a];
+			  if (tmp.endsWith(".csv") && tmp.startsWith(lifecycletype)) {
+				  filelist.add(tmp);
+			  }
+		  }
+		  System.out.println(filelist.size());
+
+		 if (filelist != null) { //To traverse all files
+	            for  (int i = start - 1; i < end; i++) {
+	            	 String openfile = filelist.get(i);
+	            	
+	            		BufferedWriter output = new BufferedWriter(new FileWriter(fileroot + "/"+featurename + "/"+ featurename+ "-" + openfile, false));	
 	            		System.out.println(openfile);
 	            		FileReader posinStream = new FileReader(fileroot +"/"+openfile);
 	            		BufferedReader in = new BufferedReader(posinStream);
@@ -108,7 +135,7 @@ public class CombineLCwithFeature {
 	            		output.close();
 	            		posinStream.close();
 	            		in.close();
-	            		}
+	            		
 	            }
 		 }
 	}
